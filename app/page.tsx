@@ -1,12 +1,10 @@
-import React from 'react'
-import Link from 'next/link'
+'use client';
+
 
 export default function Page() {
   return (
-    <>
-      <h1>React e Next.js</h1>
-      <p>Bem-vindo à minha app em React e Next.js das tecnologias web mais usadas nos dias de hoje.</p>
-
-    </>
-  )
+    <div style={{ isolation: "isolate" }}>
+      <h1>Bem-vindo à nossa Loja</h1>
+    </div>
+  );
 }

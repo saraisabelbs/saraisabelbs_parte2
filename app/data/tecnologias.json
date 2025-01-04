@@ -1,0 +1,38 @@
+[
+  {
+    "title": "HTML",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg",
+    "description": "Linguagem de marcação usada para criar a estrutura de páginas web.",
+    "rating": 4
+  },
+  {
+    "title": "CSS",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/d/d5/CSS3_logo_and_wordmark.svg",
+    "description": "Folhas de estilo que controlam a aparência de páginas web.",
+    "rating": 4
+  },
+  {
+    "title": "JavaScript",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png",
+    "description": "Linguagem de programação que adiciona interatividade às páginas web.",
+    "rating": 5
+  },
+  {
+    "title": "React.js",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
+    "description": "Biblioteca JavaScript para criar interfaces de utilizador.",
+    "rating": 5
+  },
+  {
+    "title": "Next.js",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Nextjs-logo.svg",
+    "description": "Framework React para renderização no lado do servidor.",
+    "rating": 5
+  },
+  {
+    "title": "Vercel",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Vercel_logo.svg",
+    "description": "Plataforma para alojar aplicações Next.js com facilidade.",
+    "rating": 4
+  }
+]
