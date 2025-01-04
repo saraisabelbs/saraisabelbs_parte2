@@ -11,14 +11,12 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 export default function Page() {
   const { data, error, isLoading } = useSWR<Product[]>('https://deisishop.pythonanywhere.com/products/', fetcher);
 
-  const [search, setSearch] = useState(''); // Estado para a pesquisa
-  const [filteredData, setFilteredData] = useState<Product[]>([]); // Estado para os produtos filtrados
-  const [cart, setCart] = useState<Product[]>([]); // Estado para o carrinho
-  const [isClient, setIsClient] = useState(false); // Estado para controlar a renderização no cliente
-  const [showModal, setShowModal] = useState(false); // Controla a exibição do pop-up
-  const [modalMessage, setModalMessage] = useState(''); // Mensagem do modal
+  const [search, setSearch] = useState('');
+  const [filteredData, setFilteredData] = useState<Product[]>([]);
+  const [cart, setCart] = useState<Product[]>([]);
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
 
-  // Atualizar o filteredData sempre que o search ou o data mudarem
   useEffect(() => {
     if (data) {
       const newFilteredData = data.filter((product) =>
@@ -28,56 +26,40 @@ export default function Page() {
     }
   }, [search, data]);
 
-  // Garantir que o código de cliente é executado após a renderização inicial
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setIsClient(true); // Só execute após a renderização no cliente
+    const savedCart = localStorage.getItem('cart');
+    if (savedCart) {
+      setCart(JSON.parse(savedCart));
     }
   }, []);
 
-  // Carregar os produtos do carrinho do localStorage
   useEffect(() => {
-    if (isClient) {
-      const savedCart = localStorage.getItem('cart');
-      if (savedCart) {
-        setCart(JSON.parse(savedCart));
-      }
-    }
-  }, [isClient]);
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
 
-  // Atualizar o localStorage sempre que o carrinho mudar
-  useEffect(() => {
-    if (isClient) {
-      localStorage.setItem('cart', JSON.stringify(cart));
-    }
-  }, [cart, isClient]);
-
-  // Função para adicionar um item ao carrinho
   const addItemToCart = (product: Product) => {
     setCart((prevCart) => [...prevCart, product]);
   };
 
-  // Função para remover um item do carrinho
   const removeItemFromCart = (productId: number) => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
   };
 
   const handleBuy = () => {
-    const cartProductIds = cart.map((product) => product.id); // Obter os IDs dos produtos no carrinho
-    
-    // Verifique se o carrinho está vazio antes de enviar a requisição
+    const cartProductIds = cart.map((product) => product.id);
+
     if (cartProductIds.length === 0) {
       alert("Carrinho vazio. Adicione produtos ao carrinho antes de comprar.");
       return;
     }
-  
+
     fetch("https://deisishop.pythonanywhere.com/buy/", {
       method: "POST",
       body: JSON.stringify({
-        products: cartProductIds, // IDs dos produtos no carrinho
-        name: "", // Nome do usuário (adicione um campo para capturar o nome)
-        student: false, // Status de estudante
-        coupon: "", // Cupom (adicione um campo para capturar o cupom)
+        products: cartProductIds,
+        name: "",
+        student: false,
+        coupon: "",
       }),
       headers: {
         "Content-Type": "application/json",
@@ -89,16 +71,14 @@ export default function Page() {
         }
         return response.json();
       })
-      .then((response) => {
-        console.log("Resposta da API de compra:", response);
-        setCart([]); // Limpar o carrinho após a compra
+      .then(() => {
+        setCart([]);
         setModalMessage('Compra realizada com sucesso!');
-        setShowModal(true); // Exibir a mensagem de sucesso
+        setShowModal(true);
       })
-      .catch((error) => {
-        console.log("Erro ao realizar a compra:", error);
+      .catch(() => {
         setModalMessage('Ocorreu um erro ao processar sua compra. Tente novamente.');
-        setShowModal(true); // Exibir a mensagem de erro
+        setShowModal(true);
       });
   };
 
@@ -107,12 +87,10 @@ export default function Page() {
 
   return (
     <div>
-      <div>
+      <header>
         <h1>Bem-vindo à nossa Loja</h1>
-        <p>Veja nossos produtos abaixo:</p>
-      </div>
+      </header>
 
-      {/* Input de pesquisa */}
       <div className="search-bar">
         <input
           type="text"
@@ -123,7 +101,6 @@ export default function Page() {
         />
       </div>
 
-      {/* Exibição dos produtos */}
       <div className="container mx-auto px-4 mt-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8">
           {filteredData.map((product) => (
@@ -132,7 +109,6 @@ export default function Page() {
         </div>
       </div>
 
-      {/* Exibição do carrinho */}
       <div className="cart">
         <h2>Carrinho</h2>
         <div className="cart-items">
@@ -142,7 +118,6 @@ export default function Page() {
               <h3>{item.title}</h3>
               <p>{item.description}</p>
               <p>Preço: ${item.price}</p>
-              {/* Botão para remover o item */}
               <button
                 onClick={() => removeItemFromCart(item.id)}
                 className="remove-button bg-red-500 text-white p-2 rounded"
@@ -156,16 +131,14 @@ export default function Page() {
           <p>Total: ${cart.reduce((total, item) => total + item.price, 0).toFixed(2)}</p>
         </div>
 
-        {/* Botão para realizar a compra */}
         <button
           onClick={handleBuy}
-          className="buy-button bg-blue-500 text-white p-2 rounded"
+          className="buy-button bg-pink-300 text-white p-2 rounded"
         >
           Comprar
         </button>
       </div>
 
-      {/* Pop-up de confirmação de compra */}
       {showModal && (
         <div className="modal">
           <div className="modal-content">

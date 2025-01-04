@@ -28,7 +28,7 @@ const Card = ({ product, addItemToCart }: CardProps) => {
       {/* Botão de adicionar ao carrinho */}
       <button
         onClick={() => addItemToCart(product)}
-        className="bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600"
+        className="bg-pink-300 text-white py-2 px-4 rounded-full hover:bg-pink-300"
       >
         Adicionar ao Carrinho
       </button>

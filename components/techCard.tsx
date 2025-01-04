@@ -11,7 +11,7 @@ interface TechCardProps {
 
 const TechCard: React.FC<TechCardProps> = ({ title, image, description, rating }) => {
   return (
-    <div className="border rounded-lg shadow-md p-4 max-w-sm">
+    <div className="tech-card">
       <Image src={image} alt={title} width={300} height={200} className="rounded-t-lg" />
       <div className="p-2">
         <h2 className="text-lg font-bold">{title}</h2>
