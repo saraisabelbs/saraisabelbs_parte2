@@ -1,21 +1,18 @@
-const nextConfig = {
+import { NextConfig } from 'next';
+
+const nextConfig: NextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['upload.wikimedia.org', 'deisishop.pythonanywhere.com'], // Adicione os domínios permitidos
-  },
-};
-module.exports = {
-  images: {
-    domains: ['deisishop.pythonanywhere.com'], // Adicione o domínio da API externa, se necessário
+    domains: ['upload.wikimedia.org', 'deisishop.pythonanywhere.com'], // Domínios permitidos
   },
   async rewrites() {
     return [
       {
         source: '/api/deisishop/:path*',
-        destination: 'http://deisishop.pythonanywhere.com/:path*', // Redireciona as requisições para a API externa
+        destination: 'http://127.0.0.1:8000/:path*', // Redirecione para a API local
       },
     ];
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;
