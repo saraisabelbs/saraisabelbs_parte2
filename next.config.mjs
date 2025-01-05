@@ -3,11 +3,6 @@ const nextConfig = {
   images: {
     domains: ['upload.wikimedia.org', 'deisishop.pythonanywhere.com'], // Adicione os domínios permitidos
   },
-};
-module.exports = {
-  images: {
-    domains: ['deisishop.pythonanywhere.com'], // Adicione o domínio da API externa, se necessário
-  },
   async rewrites() {
     return [
       {
@@ -18,4 +13,4 @@ module.exports = {
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;
