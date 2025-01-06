@@ -9,20 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "next": "^13.4.0", 
-=======
-    "next": "^13.5.8",
->>>>>>> 6efdb20 (Vercel foi eleminado)
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-=======
     "@vercel/next": "^4.4.2",
     "next": "^15.1.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
->>>>>>> ee6b850 (atualizacao feita)
     "swr": "^2.3.0"
   },
   "devDependencies": {
